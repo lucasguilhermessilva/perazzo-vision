@@ -120,6 +120,8 @@ class PipelineManager:
             
             # Monta um PDF novo apenas com as fotos de extratos que ganharam
             doc_dossie = fitz.open()
+            streams_abertos = []
+            
             for e in resultado_juridico["elegiveis"]:
                 # Recupera o caminho da imagem original a partir do resultado JSON
                 arq_origem = e.get("arquivo_origem")
@@ -136,12 +138,19 @@ class PipelineManager:
                         # 3. Abre como um stream na memória
                         pdf_temporario = fitz.open("pdf", pdf_bytes)
                         
+                        # Guardamos a referência na lista antes de passar pro mestre
+                        streams_abertos.append(pdf_temporario)
+                        
                         # 4. Copia explicitamente a página para o documento mestre
                         doc_dossie.insert_pdf(pdf_temporario)
-                        pdf_temporario.close() # Fecha a stream da memoria
             
             doc_dossie.save(dossie_path)
             doc_dossie.close()
+            
+            # 5. Fecha todos os streams isolados só APÓS salvar a Master Piece.
+            for s in streams_abertos:
+                s.close()
+                
             relatorio_geral["dossie_path"] = dossie_path
             logger.info(f"📚 Dossiê compilado com sucesso em: {dossie_path}")
                 

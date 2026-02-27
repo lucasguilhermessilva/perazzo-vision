@@ -15,22 +15,7 @@ class RateLimitException(Exception):
 
 class SmartExtractor:
     def __init__(self, api_key: str = None):
-        self.api_key = None
-        try:
-            import streamlit as st
-            # Tenta buscar do st.secrets primeiro (Nuvem)
-            if "GEMINI_API_KEY" in st.secrets:
-                self.api_key = st.secrets["GEMINI_API_KEY"]
-            else:
-                self.api_key = None
-        except Exception:
-            self.api_key = None
-            
-        if not self.api_key:
-            # Fallback para Variaveis de Ambiente. Se NÃO ESTIVER, não usamos hardcoded de produção.
-            self.api_key = api_key or os.environ.get("GEMINI_API_KEY")
-            if not self.api_key:
-                 raise ValueError("⚠️ [SEGURANÇA] Nenhuma API Key do Gemini configurada. Use Streamlit Secrets ou Variavel de Ambiente 'GEMINI_API_KEY'.")
+        self.api_key = "AIzaSyBw6mG79mmEjd9BT7MIf9Wub2FK6Y8vqbI"
             
         # Inicia o client oficial com a chave
         self.client = genai.Client(api_key=self.api_key)
