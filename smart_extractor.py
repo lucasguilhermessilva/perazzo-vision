@@ -27,8 +27,10 @@ class SmartExtractor:
             self.api_key = None
             
         if not self.api_key:
-            # Fallback para Variaveis de Ambiente ou Chave Hardcoded (Ambiente Local/Dev)
-            self.api_key = api_key or os.environ.get("GEMINI_API_KEY") or "AIzaSyBw6mG79mmEjd9BT7MIf9Wub2FK6Y8vqbI"
+            # Fallback para Variaveis de Ambiente. Se NÃO ESTIVER, não usamos hardcoded de produção.
+            self.api_key = api_key or os.environ.get("GEMINI_API_KEY")
+            if not self.api_key:
+                 raise ValueError("⚠️ [SEGURANÇA] Nenhuma API Key do Gemini configurada. Use Streamlit Secrets ou Variavel de Ambiente 'GEMINI_API_KEY'.")
             
         # Inicia o client oficial com a chave
         self.client = genai.Client(api_key=self.api_key)
