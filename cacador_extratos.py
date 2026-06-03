@@ -6,7 +6,7 @@ import time
 print("🚀 Sistema Perazzinho - Módulo Caçador (Versão FEBRABAN com 1.5 Flash)!")
 
 # Cole a sua chave Nível 1 aqui
-CHAVE_API = "AIzaSyBw6mG79mmEjd9BT7MIf9Wub2FK6Y8vqbI"
+CHAVE_API = os.environ.get("GEMINI_API_KEY")
 client = genai.Client(api_key=CHAVE_API)
 
 def cacar_no_processo(pasta_imagens):

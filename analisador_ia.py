@@ -5,7 +5,7 @@ import json
 print("🚀 Sistema Perazzinho Iniciado! Carregando os módulos...")
 
 # 1. Configuração da sua chave de API
-CHAVE_API = "AIzaSyBw6mG79mmEjd9BT7MIf9Wub2FK6Y8vqbI"
+CHAVE_API = os.environ.get("GEMINI_API_KEY")
 client = genai.Client(api_key=CHAVE_API)
 
 def analisar_extrato(caminho_imagem):

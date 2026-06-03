@@ -15,7 +15,7 @@ class RateLimitException(Exception):
 
 class SmartExtractor:
     def __init__(self, api_key: str = None):
-        self.api_key = "AIzaSyBw6mG79mmEjd9BT7MIf9Wub2FK6Y8vqbI"
+        self.api_key = os.environ.get("GEMINI_API_KEY")
             
         # Inicia o client oficial com a chave
         self.client = genai.Client(api_key=self.api_key)

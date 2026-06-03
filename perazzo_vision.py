@@ -7,7 +7,7 @@ import time
 # Configuração da página - A cara do Perazzo Vision
 st.set_page_config(page_title="Perazzo Vision | Expurgos", page_icon="👁️", layout="wide")
 
-CHAVE_API = "AIzaSyBw6mG79mmEjd9BT7MIf9Wub2FK6Y8vqbI"
+CHAVE_API = os.environ.get("GEMINI_API_KEY")
 client = genai.Client(api_key=CHAVE_API)
 
 # Interface Gráfica
